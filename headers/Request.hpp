@@ -8,7 +8,7 @@
  * data. Children of this class can augment functionality by overriding start()
  * and finish().
  */
-class Request
+class Request 
 {
 private:
     /**

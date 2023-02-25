@@ -1,4 +1,4 @@
-#include "Request.hpp"
+#include "../headers/Request.hpp"
 
 #include <random>
 #include <chrono>
@@ -8,17 +8,23 @@
 
 void Request::simulateLatency(const std::string& uri)
 {
+    
+    // This gives unique values for uris name either uri1 or uri2
     static std::map<std::string, std::normal_distribution<double>> distributions{
         {{"uri1"}, std::normal_distribution<double>(10000.0, 2500.0)},
         {{"uri2"}, std::normal_distribution<double>(20000.0, 7500.0)}};
+
     static std::normal_distribution<double> defaultDistribution(
             15000.0,
             5000.0);
+
     static std::random_device device;
 
     const auto it = distributions.find(uri);
+
     std::normal_distribution<double>& distribution(
             it == distributions.end() ? defaultDistribution : it->second);
+
 
     const auto responseTime = distribution(device);
     if(responseTime >= 1.0)
