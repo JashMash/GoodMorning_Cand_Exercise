@@ -415,28 +415,29 @@ int test_Histo_binEdgeCheck(std::string uri, int maxBins,
 
     std::string testName ="histogramResptime() edge bins have data";
     std::string expectedResult = "Histogram with Data on edge bins. Bins: "
-                                +to_string(maxBins) +" Points: "+to_string(dataPoints)+"\n";
+                                +to_string(maxBins) +
+                                    " Points: "+to_string(dataPoints)+"\n";
 
     try{
         auto result = timer.histogramResptime(uri, maxBins);
         if (std::get<1>(result[0]) >0 && std::get<1>(result.back()) >0){
             successMsg(testName, "Histogram");
             // First element
-            std::cout << std::get<0>(result[0])<<' ';
+            std::cout <<"        " << std::get<0>(result[0])<<' ';
             std::cout << std::get<1>(result[0])<<'\n';
             // Last element
-            std::cout << std::get<0>(result.back())<<' ';
+            std::cout << "        "<<std::get<0>(result.back())<<' ';
             std::cout << std::get<1>(result.back())<<'\n';
 
         } else {
             failMsg(testName, "", expectedResult);
             testFailures+=1;
             // First element
-            std::cout << std::get<0>(result[0])<<' ';
-            std::cout << std::get<1>(result[0])<<'\n';
+            std::cout <<"        " << std::get<0>(result[0])<<' ';
+            std::cout <<std::get<1>(result[0])<<'\n';
             // Last element
-            std::cout << std::get<0>(result.back())<<' ';
-            std::cout << std::get<1>(result.back())<<'\n';
+            std::cout << "        "<<std::get<0>(result.back())<<' ';
+            std::cout << "        "<<std::get<1>(result.back())<<'\n';
         }
 
         printf("\n\n");
@@ -460,14 +461,14 @@ int test_Histo_totalPointsCheck(std::string uri, int maxBins,
         if (dataPointCounter(result) == dataPoints){
             successMsg(testName, expectedResult);
             for (std::tuple<std::string, int> i : result){
-                std::cout << std::get<0>(i)<<' ';
+                std::cout <<"        "<< std::get<0>(i)<<' ';
                 std::cout << std::get<1>(i) <<'\n';
             };
         } else {
             failMsg(testName, "", expectedResult);
             testFailures+=1;
             for (std::tuple<std::string, int> i : result){
-                std::cout << std::get<0>(i)<<' ';
+                std::cout <<"        "<< std::get<0>(i)<<' ';
                 std::cout << std::get<1>(i) <<'\n';
             };
         }
