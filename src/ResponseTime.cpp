@@ -35,8 +35,9 @@ int ResponseTime::pullMaxBins(void){
 // Public
 double ResponseTime::meanRespTime(const std::string& uri){
     /*
-    Determines Mean for URI provided, and updates the dictionary
-    'm_URIMeanRespT' with new Mean at string of URI
+    Determines Mean for URI provided, 
+    Using data from time data in 'm_URIResponseTimes'
+    and querying provided URI
 
     Inputs:
         'uri'  : <const std::string&> 
@@ -181,7 +182,7 @@ std::vector<std::tuple<std::string, int>> ResponseTime::histogramResptime
         binRange.str("");
     };
 
-    // Eliminating bins without data
+    // Eliminating bins without data on edges
     while (std::get<1>(histogramData[0]) ==0 || std::get<1>(histogramData.back()) ==0){
         if (std::get<1>(histogramData[0]) ==0)
             histogramData.erase(histogramData.begin());
@@ -263,8 +264,8 @@ void ResponseTime::uriTimer(const std::string& uri){
     /*
     Initiates the Request while tracking its duration.
 
-    Once it has the duration adds it to any previous values found,
-    updates/creates mean and standard deviation.
+    Duration is then appended to a dictionary of prior response times
+    using the function 'responseTimeInserter()'
 
     Inputs:
         'uri'     : <const std::string&> 
